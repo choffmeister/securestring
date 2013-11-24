@@ -1,0 +1,9 @@
+language: scala
+scala:
+  - 2.10.2
+  - 2.10.3
+script:
+  - "sbt ++$TRAVIS_SCALA_VERSION clean scct:test printCoverage"
+branches:
+  except:
+    - /^te?mp-.*$/

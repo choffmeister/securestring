@@ -1,0 +1,13 @@
+# Simple Build Tool
+target/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Trash
+.cache
+.DS_Store
+._.DS_Store
+Thumbs.db
