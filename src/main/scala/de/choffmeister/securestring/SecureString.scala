@@ -28,6 +28,15 @@ class SecureString(plain: Array[Byte]) {
     }
   }
 
+  def readBytes[T](inner: Array[Byte] => T): T = {
+    val bytes = shake(shaked)
+    try {
+      inner(bytes)
+    } finally {
+      SecureString.clear(bytes)
+    }
+  }
+
   private def shake(bytes: Array[Byte]): Array[Byte] = {
     val rnd = new Random(SecureString.globalSeed ^ seed)
     val result = new Array[Byte](bytes.length)

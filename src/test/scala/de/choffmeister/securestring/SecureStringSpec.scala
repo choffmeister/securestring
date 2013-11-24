@@ -39,5 +39,7 @@ class SecureStringSpec extends Specification {
 
     ss1.read(_ === "test1".toCharArray)
     ss2.read(_ === "test2".toCharArray)
+    ss1.readBytes(_ === "test1".getBytes("UTF-8"))
+    ss2.readBytes(_ === "test2".getBytes("UTF-8"))
   }
 }
