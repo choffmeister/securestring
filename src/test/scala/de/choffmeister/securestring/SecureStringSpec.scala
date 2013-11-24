@@ -42,4 +42,13 @@ class SecureStringSpec extends Specification {
     ss1.readBytes(_ === "test1".getBytes("UTF-8"))
     ss2.readBytes(_ === "test2".getBytes("UTF-8"))
   }
+
+  "wipe" in {
+    val ss = SecureString("password".toCharArray)
+    ss.read(_.mkString === "password")
+    ss.readBytes(_.toList === "password".getBytes("UTF-8").toList)
+    ss.wipe()
+    ss.read(_.mkString !== "password") must throwA
+    ss.readBytes(_.toList != "password".getBytes("UTF-8").toList) must throwA
+  }
 }

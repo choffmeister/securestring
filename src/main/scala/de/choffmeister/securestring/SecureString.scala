@@ -12,9 +12,11 @@ import java.nio._
 class SecureString(plain: Array[Byte]) {
   private val seed = SecureString.random.nextLong
   private val shaked = shake(plain)
+  private var wiped = false
   SecureString.clear(plain)
 
   def read[T](inner: Array[Char] => T): T = {
+    if (wiped) throw new Exception("SecureString has already been wiped")
     val bytes = shake(shaked)
     try {
       val chars = SecureString.decode(bytes)
@@ -29,12 +31,18 @@ class SecureString(plain: Array[Byte]) {
   }
 
   def readBytes[T](inner: Array[Byte] => T): T = {
+    if (wiped) throw new Exception("SecureString has already been wiped")
     val bytes = shake(shaked)
     try {
       inner(bytes)
     } finally {
       SecureString.clear(bytes)
     }
+  }
+
+  def wipe() {
+    SecureString.clear(shaked)
+    wiped = true
   }
 
   private def shake(bytes: Array[Byte]): Array[Byte] = {
