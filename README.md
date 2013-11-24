@@ -18,6 +18,7 @@ securestring.read { plain =>
 }
 
 // after the inner function the decrypted char array is automatically wiped out
+```
 
 # Use with SBT
 

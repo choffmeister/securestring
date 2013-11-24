@@ -16,11 +16,16 @@ class SecureString(plain: Array[Byte]) {
 
   def read[T](inner: Array[Char] => T): T = {
     val bytes = shake(shaked)
-    val chars = SecureString.decode(bytes)
-    val result = inner(chars)
-    SecureString.clear(chars)
-    SecureString.clear(bytes)
-    result
+    try {
+      val chars = SecureString.decode(bytes)
+      try {
+        inner(chars)
+      } finally {
+        SecureString.clear(chars)
+      }
+    } finally {
+      SecureString.clear(bytes)
+    }
   }
 
   private def shake(bytes: Array[Byte]): Array[Byte] = {
