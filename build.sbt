@@ -15,7 +15,7 @@ testOptions in Test += Tests.Argument("junitxml", "console")
 
 publishMavenStyle := true
 
-publishTo := Some(Resolver.sftp("maven.choffmeister.de", "choffmeister.de", "/var/www/maven.choffmeister.de"))
+publishTo := Some(Resolver.sftp("repo.choffmeister.de", "choffmeister.de", "/var/www/de.choffmeister.repo/maven2"))
 
 ScctPlugin.instrumentSettings
 

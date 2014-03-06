@@ -25,7 +25,7 @@ securestring.read { plain =>
 Add the following configuration to your `build.sbt`:
 
 ```scala
-resolvers += "maven.choffmeister.de" at "http://maven.choffmeister.de"
+resolvers += "repo.choffmeister.de" at "http://repo.choffmeister.de/maven2"
 
 libraryDependencies += "de.choffmeister" %% "securestring" % "0.0.1"
 ```
